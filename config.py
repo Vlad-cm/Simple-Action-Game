@@ -12,6 +12,12 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+MOB_MAX_SPEED = 2
+PLAYER_MAX_SPEED = 3
+
+BAR_LENGTH = 100
+BAR_HEIGHT = 10
+
 pygame.init()
 pygame.mixer.init()
 
@@ -26,12 +32,12 @@ player_sm_img.set_colorkey(BLACK)
 bullet_img = pygame.image.load(os.path.join(img_folder, "bul.png"))
 shoot_sound = pygame.mixer.Sound(os.path.join(snd_folder, 'pew.wav'))
 
-powerup_images = {'shield': pygame.image.load(os.path.join(img_folder, 'shield_gold.png')),
-                  'gun': pygame.image.load(os.path.join(img_folder, 'thd.png'))}
+power_up_images = {'shield': pygame.image.load(os.path.join(img_folder, 'shield_gold.png')),
+                   'gun': pygame.image.load(os.path.join(img_folder, 'thd.png'))}
 
-expl_sounds = []
+explosion_sounds = []
 for snd in ['expl3.wav', 'expl6.wav']:
-    expl_sounds.append(pygame.mixer.Sound(os.path.join(snd_folder, snd)))
+    explosion_sounds.append(pygame.mixer.Sound(os.path.join(snd_folder, snd)))
 
 pygame.mixer.music.load(os.path.join(snd_folder, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
 pygame.mixer.music.set_volume(0.3)

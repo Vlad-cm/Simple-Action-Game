@@ -6,10 +6,9 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
-        self.speed = 0
+        pygame.sprite.Sprite.__init__(self)
         self.power = 1
         self.power_time = pygame.time.get_ticks()
-        pygame.sprite.Sprite.__init__(self)
         self.image_orig = pygame.transform.scale(player_img, (50, 38))
         self.image_orig.set_colorkey(BLACK)
         self.image = self.image_orig
@@ -17,8 +16,6 @@ class Player(pygame.sprite.Sprite):
         self.radius = 20
         self.rect.centerx = WIDTH / 2
         self.rect.bottom = HEIGHT - 10
-        self.speedx = 0
-        self.speedy = 0
         self.speed = 0
         self.angle = 0
         self.shield = 100
@@ -35,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = old_center
 
-    def powerup(self):
+    def power_up(self):
         self.power += 1
         self.power_time = pygame.time.get_ticks()
 
@@ -59,14 +56,19 @@ class Player(pygame.sprite.Sprite):
             self.update_image()
 
         if keystate[pygame.K_DOWN]:
-            self.speed -= 0.2
+            if self.speed >= -1 * PLAYER_MAX_SPEED:
+                self.speed -= 0.4
+
         if keystate[pygame.K_UP]:
-            self.speed += 0.4
+            if self.speed <= PLAYER_MAX_SPEED:
+                self.speed += 0.4
+
         if not keystate[pygame.K_UP] and not keystate[pygame.K_DOWN]:
             if self.speed <= 0:
                 self.speed = 0
             else:
                 self.speed -= 0.1
+
         if keystate[pygame.K_SPACE]:
             self.shoot()
 
